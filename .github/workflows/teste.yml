@@ -14,9 +14,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  CI:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -40,3 +38,24 @@ jobs:
           tags: |
             mitsueam/estudos1:latest
             mitsueam/estudos1:${{ github.run_number }}
+            
+  CD:
+    needs: [CI]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Kubernetes set context
+        uses: Azure/k8s-set-context@v1.1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v1.3
+        with: 
+          images: mitsueam/estudos1:${{ github.run_number }} 
+          manifests: |
+            k8s/deployment.yaml
+           
