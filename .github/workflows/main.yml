@@ -30,10 +30,10 @@ jobs:
             mitsueam/estudos1:latest
             mitsueam/estudos1:${{ github.run_number }} 
  
- CD:
-   runs-on: ubuntu-latest
+  CD:
+    runs-on: ubuntu-latest
    
-   steps:
+    steps:
       - uses: actions/checkout@v2
       
       - name: Kubernetes set context
