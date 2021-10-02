@@ -32,7 +32,7 @@ jobs:
          password: ${{ secrets.DOCKERHUB_PWD }}
       
       - name: Docker buil and push
-        uses: docker/push-build-action@v2.7.0
+        uses: docker/build-push-action@v2.7.0
         with:
           context: ./src
           file: ./src/Dockerfile
