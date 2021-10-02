@@ -31,7 +31,7 @@ jobs:
             mitsueam/estudos1:${{ github.run_number }} 
  
   CD:
-    uses: [CI]
+    needs: [CI]
     runs-on: ubuntu-latest
    
     steps:
