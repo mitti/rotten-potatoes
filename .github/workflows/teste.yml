@@ -30,4 +30,13 @@ jobs:
     
          username: ${{ secrets.DOCKERHUB_USER }}
          password: ${{ secrets.DOCKERHUB_PWD }}
-        
+      
+      - name: Docker buil and push
+        uses: docker/push-build-action@v2.7.0
+        with:
+          context: ./src
+          file: ./src/Dockerfile
+          push: true
+          tags: |
+            mitsueam/estudos1:latest
+            mitsueam/estudos1:${{ github.run_number }}
